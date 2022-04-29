@@ -1,0 +1,71 @@
+$blue: #0018ff;
+$border-common: 2px solid #000;
+
+body {
+  background: url("img/general-bg.png") repeat 0 0;
+}
+
+.window {
+  background: #fff;
+  border: $border-common;
+  max-width: 544px;
+  margin: 200px auto 0;
+
+  .header {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 4px 3px;
+    border-bottom: $border-common;
+
+    h1 {
+      margin: 0 15px;
+      font-size: 20px;
+    }
+
+    .lines {
+      flex: 1;
+
+      span {
+        background: #000;
+        height: 2px;
+        width: 100%;
+        display: block;
+        margin: 2px 0 0;
+      }
+    }
+  }
+
+  .body {
+    padding: 3px;
+    border-bottom: $border-common;
+  }
+
+  .footer {
+    background: #e3e3e3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+
+    .side-kick-text {
+      margin-right: 15px;
+    }
+  }
+}
+
+.game-wrapper {
+  height: 259px;
+  background: url("img/game-bg.jpg") no-repeat 0 0;
+  background-size: cover;
+}
+
+button {
+  background: $blue;
+  padding: 10px 20px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: 0;
+}
