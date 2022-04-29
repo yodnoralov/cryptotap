@@ -1,8 +1,10 @@
 $blue: #0018ff;
 $border-common: 2px solid #000;
+$font-family: monospace;
 
 body {
   background: url("img/general-bg.png") repeat 0 0;
+  font-family: $font-family;
 }
 
 .window {
@@ -10,6 +12,7 @@ body {
   border: $border-common;
   max-width: 544px;
   margin: 200px auto 0;
+  box-shadow: 6px 6px 0px #282828;
 
   .header {
     text-align: center;
@@ -59,6 +62,50 @@ body {
   height: 259px;
   background: url("img/game-bg.jpg") no-repeat 0 0;
   background-size: cover;
+  display: flex;
+  position: relative;
+
+  .coin.main {
+    margin: 30px auto 0px -15px;
+    position: absolute;
+    left: 50%;
+    transition: all 0.5s;
+
+    &.active {
+      transform: translateY(186px);
+      opacity: 0;
+      transition: all 0.5s;
+    }
+  }
+
+  .fountain {
+    width: 116px;
+    height: 80px;
+    margin: auto auto 0px;
+    background: url("img/fountain-animation.gif") no-repeat 0 0;
+    background-size: cover;
+  }
+
+  .right-controls {
+    right: 0px;
+    bottom: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: absolute;
+
+    .help-text {
+      font-size: 10px;
+      text-align: right;
+      width: 80px;
+    }
+
+    .coin-holder {
+      width: 30px;
+      margin: 0 0 0 10px;
+    }
+  }
 }
 
 button {
@@ -68,4 +115,6 @@ button {
   font-size: 20px;
   font-weight: bold;
   border: 0;
+  font-family: $font-family;
+  box-shadow: 4px 4px 0px #282828;
 }

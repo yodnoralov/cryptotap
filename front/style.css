@@ -1,5 +1,6 @@
 body {
   background: url("img/general-bg.png") repeat 0 0;
+  font-family: monospace;
 }
 
 .window {
@@ -7,6 +8,7 @@ body {
   border: 2px solid #000;
   max-width: 544px;
   margin: 200px auto 0;
+  box-shadow: 6px 6px 0px #282828;
 }
 .window .header {
   text-align: center;
@@ -49,6 +51,44 @@ body {
   height: 259px;
   background: url("img/game-bg.jpg") no-repeat 0 0;
   background-size: cover;
+  display: flex;
+  position: relative;
+}
+.game-wrapper .coin.main {
+  margin: 30px auto 0px -15px;
+  position: absolute;
+  left: 50%;
+  transition: all 0.5s;
+}
+.game-wrapper .coin.main.active {
+  transform: translateY(186px);
+  opacity: 0;
+  transition: all 0.5s;
+}
+.game-wrapper .fountain {
+  width: 116px;
+  height: 80px;
+  margin: auto auto 0px;
+  background: url("img/fountain-animation.gif") no-repeat 0 0;
+  background-size: cover;
+}
+.game-wrapper .right-controls {
+  right: 0px;
+  bottom: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: absolute;
+}
+.game-wrapper .right-controls .help-text {
+  font-size: 10px;
+  text-align: right;
+  width: 80px;
+}
+.game-wrapper .right-controls .coin-holder {
+  width: 30px;
+  margin: 0 0 0 10px;
 }
 
 button {
@@ -58,6 +98,8 @@ button {
   font-size: 20px;
   font-weight: bold;
   border: 0;
+  font-family: monospace;
+  box-shadow: 4px 4px 0px #282828;
 }
 
 /*# sourceMappingURL=style.css.map */
