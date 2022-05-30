@@ -4,8 +4,62 @@
     <meta charset="UTF-8">
     <title>Crypto Tap(b)</title>
     <link href="style.css" rel="stylesheet">
+    <script async="" src="js.js"></script>
 </head>
 <body>
+
+<div class="game-wrapper">
+    <div class="overlay"></div>
+    <div id="cloud" class="cloud">
+        <img class="cloud-img" src="img/cloud.png" width="135" height="72"/>
+        <span class="rain"></span>
+        <span class="rain"></span>
+        <span class="rain"></span>
+        <span class="rain"></span>
+        <span class="rain"></span>
+        <span class="rain"></span>
+    </div>
+    <div class="rainbow"></div>
+    <div class="google-search-wrapper">
+        <form method="get" action="http://www.google.com/search">
+            <input class="search" type="text" name="q" size="25" style="color:#808080;"
+                   maxlength="255" value="Search Google"
+                   onfocus="if(this.value==this.defaultValue)this.value=''; this.style.color='black';"
+                   onblur="if(this.value=='')this.value=this.defaultValue; "/>
+            <input class="submit" type="submit" value="Go!"/>
+
+        </form>
+    </div>
+    <div id="crypto-widget" class="crypto-widget-wrapper">
+        <div class="row header">
+            <span class="name">Coin</span>
+            <span class="price-change">24hr Change</span>
+            <span class="price">Price</span>
+        </div>
+    </div>
+    <div class="coin-toss-wrapper">
+        <div id="instructions">toss a coin</div>
+        <img id="coin" class="coin" src="img/coin.png" width="30" height="28"/>
+    </div>
+    <div id="fountain" class="fountain">
+        <div id="splashes" class="splashes">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="right-controls">
+        <div id="coins" class="coin-holder">
+            <img id="coin2" class="coin" src="img/coin.png" width="30" height="28"/>
+            <img id="coin3" class="coin" src="img/coin.png" width="30" height="28"/>
+        </div>
+    </div>
+    <img class="bush" id="bush" src="img/bush.jpg" width="162" height="45"/>
+</div>
+
 <div class="app-wrapper">
     <div class="window">
         <div class="header">
@@ -28,20 +82,6 @@
             </div>
         </div>
         <div class="body">
-            <div class="game-wrapper">
-                <img class="coin main" src="img/coin.png" width="30" height="28"/>
-                <div class="fountain">
-                </div>
-                <div class="right-controls">
-                    <div class="help-text">
-                        3 tries resets hourly
-                    </div>
-                    <div class="coin-holder">
-                        <img class="coin" src="img/coin.png" width="30" height="28"/>
-                        <img class="coin" src="img/coin.png" width="30" height="28"/>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="footer">
             <span class="side-kick-text">
@@ -54,5 +94,6 @@
     </div>
 </div>
 </div>
+<script async="" src="https://www.cryptohopper.com/widgets/js/script"></script>
 </body>
 </html>

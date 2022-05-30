@@ -1,13 +1,393 @@
-$blue: #0018ff;
 $border-common: 2px solid #000;
 $font-family: monospace;
+$search-width: 560px;
+
+$color-blue: #0018ff;
+$color-blue-water: #41c1ee;
+$color-red: #fa1908;
+$color-green: #46ff14;
+$color-gold: #fccc13;
+
+html {
+  &.disabled {
+    overflow: hidden;
+
+    .overlay {
+      opacity: 1;
+    }
+  }
+}
 
 body {
-  background: url("img/general-bg.png") repeat 0 0;
+  margin: 0;
   font-family: $font-family;
+  background: #4e93ff;
+}
+
+.game-wrapper {
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  font-size: 15px;
+
+  .coin-toss-wrapper {
+    bottom: 450px;
+    width: 200px;
+    margin: 0 0 0 -100px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+
+    #instructions {
+      opacity: 0.75;
+    }
+
+    .coin {
+      margin: 15px 0 0;
+
+      &.drop-animation {
+        animation-name: coindrop;
+        animation-duration: 2.5s;
+        animation-iteration-count: 1;
+        animation-timing-function: cubic-bezier(.62, .06, .91, .62);
+        z-index: 2;
+        cursor: pointer;
+        animation-fill-mode: forwards;
+      }
+
+      &.active {
+        transform: translateY(186px);
+        opacity: 0;
+        transition: all 0.5s;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+        transition: .2s ease-in-out;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .coin {
+    &.poof {
+      animation-name: poof;
+      animation-duration: .5s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-timing-function: cubic-bezier(1, -0.29, .91, .62);
+    }
+  }
+
+  .crypto-widget-wrapper {
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
+    bottom: 100px;
+    letter-spacing: -.5px;
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+
+      &:not(.header) {
+        counter-increment: section;
+        padding-left: 20px;
+
+        &:before {
+          content: counter(section);
+          margin-right: 5px;
+          position: absolute;
+          left: -5px;
+          text-align: center;
+          width: 20px;
+        }
+      }
+
+      &.header {
+        border-bottom: 1px solid rgba(0, 0, 0, 1);
+        padding-bottom: 1px;
+        color: $color-gold;
+
+        &:after {
+          width: 100%;
+          height: 1px;
+          background: #000;
+          content: "";
+          margin-top: 5px;
+        }
+
+        span:before {
+          display: none;
+        }
+      }
+
+      .name {
+        width: 40%;
+      }
+
+      .price {
+        justify-self: flex-end;
+        text-align: right;
+        width: 25%;
+      }
+
+      .price-change {
+        width: 35%;
+        text-align: left;
+
+        &:before {
+          margin-right: 5px;
+          display: inline-block;
+          width: 0;
+          height: 0;
+          vertical-align: middle;
+          content: '';
+        }
+
+        &.positive {
+          color: $color-green;
+
+          &:before {
+            border-style: solid;
+            border-width: 0 3px 6px 3px;
+            border-color: transparent transparent $color-green transparent;
+          }
+        }
+
+        &.negative {
+          color: $color-red;
+
+          &:before {
+            border-style: solid;
+            border-width: 6px 3px 0 3px;
+            border-color: $color-red transparent transparent transparent;
+          }
+        }
+      }
+    }
+  }
+
+  .google-search-wrapper {
+    width: $search-width;
+    position: absolute;
+    left: 50%;
+    margin: 0px 0 0 (-$search-width/2);
+    bottom: 70%;
+    z-index: 4;
+
+    .submit {
+      display: none;
+    }
+
+    .search {
+      width: 100%;
+      border-radius: 30px;
+      padding: 15px 15px 15px 55px;
+      border: 1px solid #4482e4;
+      font-family: inherit;
+      box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.15);
+      font-size: 16px;
+      box-sizing: border-box;
+      background: url("img/search-icon.svg") no-repeat 20px center #fff;
+      background-size: 15px 15px;
+
+      &:active, &:focus-visible {
+        outline: none;
+      }
+
+      &:before {
+        content: "blah";
+      }
+    }
+
+
+  }
+
+  .cloud {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    text-align: center;
+
+    .cloud-img {
+      z-index: 2;
+      position: relative;
+    }
+
+    &.animate .rain {
+      animation-name: rainfall;
+    }
+
+    .rain {
+      display: block;
+      top: -100px;
+      z-index: 1;
+      margin: 10px 90px;
+      width: 6px;
+      height: 10px;
+      background: #fff;
+      position: absolute;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      animation-timing-function: cubic-bezier(.62, .06, .91, .62);
+
+      &:nth-child(2), &:nth-child(4) {
+        background: $color-blue-water;
+        animation-duration: .75s;
+      }
+
+      &:nth-child(2) {
+        margin: 25px 45px;
+        animation-duration: 1.6s;
+      }
+
+      &:nth-child(3) {
+        margin: 65px 25px;
+        animation-duration: 1.2s;
+      }
+
+      &:nth-child(4) {
+        margin: 50px 95px;
+      }
+
+      &:nth-child(5) {
+        margin: 95px 45px;
+      }
+
+      &:nth-child(6) {
+        margin: 5px 105px;
+        animation-duration: 1.4s;
+      }
+    }
+  }
+
+  .rainbow {
+    width: 60px;
+    height: 48px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url("img/rainbow.png") no-repeat 0 0;
+    background-size: cover;
+  }
+
+  .bush {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+
+    &.animate {
+      animation-name: bushgrow;
+    }
+  }
+
+  .fountain {
+    width: 116px;
+    height: 80px;
+    position: absolute;
+    margin: 0 0 0 -58px;
+    left: 50%;
+    bottom: 0;
+    background: url("img/fountain-animation.gif") no-repeat 0 0;
+    background-size: cover;
+    animation-duration: .4s;
+    animation-delay: 400ms;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.58,-0.37,.41,1.27);
+
+
+    &.animate {
+      animation-name: fountainBulge;
+    }
+
+    .splashes {
+      position: absolute;
+
+      &.animate {
+
+        span {
+          animation-name: fountainSplash;
+        }
+      }
+
+      span {
+        background: #fff;
+        height: 8px;
+        width: 8px;
+        display: block;
+        position: absolute;
+        bottom: random(200)+px;
+        left: random(100)+px;
+        transform: translateY(400px);
+        animation-duration: 1s;
+        animation-iteration-count: 1;
+        animation-timing-function: cubic-bezier(.2, .67, .21, .94);
+        animation-fill-mode: forwards;
+        animation-delay: 500ms;
+
+        &:nth-child(odd) {
+          background: $color-blue-water;
+        }
+
+        $waterTransitions: .75, .5, 1.2, .9, 1.3, 1;
+
+        @for $i from 1 through 6 {
+          &:nth-child(3n + #{$i}) {
+            bottom: random(200)+px;
+            left: random(200)+px;
+            animation-duration: nth($waterTransitions, $i)+s;
+          }
+        }
+      }
+    }
+  }
+
+  .right-controls {
+    right: 0px;
+    bottom: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: absolute;
+
+    .coin-holder {
+      width: 30px;
+      margin: 0 0 0 10px;
+    }
+  }
+}
+
+.fadeout {
+  opacity: 0 !important;
+  transition: all ease 300ms;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(25, 35, 50, 0.9);
+  z-index: 3;
+  transition: all ease 2s;
+  pointer-events: none;
 }
 
 .window {
+  display: none;
   background: #fff;
   border: $border-common;
   max-width: 544px;
@@ -58,63 +438,96 @@ body {
   }
 }
 
-.game-wrapper {
-  height: 259px;
-  background: url("img/game-bg.jpg") no-repeat 0 0;
-  background-size: cover;
-  display: flex;
-  position: relative;
-
-  .coin.main {
-    margin: 30px auto 0px -15px;
-    position: absolute;
-    left: 50%;
-    transition: all 0.5s;
-
-    &.active {
-      transform: translateY(186px);
-      opacity: 0;
-      transition: all 0.5s;
-    }
-  }
-
-  .fountain {
-    width: 116px;
-    height: 80px;
-    margin: auto auto 0px;
-    background: url("img/fountain-animation.gif") no-repeat 0 0;
-    background-size: cover;
-  }
-
-  .right-controls {
-    right: 0px;
-    bottom: 10px;
-    padding-right: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    position: absolute;
-
-    .help-text {
-      font-size: 10px;
-      text-align: right;
-      width: 80px;
-    }
-
-    .coin-holder {
-      width: 30px;
-      margin: 0 0 0 10px;
-    }
-  }
-}
-
 button {
-  background: $blue;
-  padding: 10px 20px;
+  background: $color-blue;
+  padding: 5px 10px;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   border: 0;
   font-family: $font-family;
   box-shadow: 4px 4px 0px #282828;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 2px 2px 0px #282828;
+  }
+}
+
+@keyframes coindrop {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  12% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(450px) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+
+}
+
+@keyframes poof {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15) translateY(-20px);
+    opacity: 0;
+  }
+}
+
+@keyframes rainfall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(900px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fountainSplash {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(-400px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fountainBulge {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bushgrow {
+  0% {
+    transform: translateX(0px) scale3d(1, 1, 1);
+  }
+  50% {
+    transform: translateX(5px) scale3d(1, 1.1, 1);
+  }
+  100% {
+    transform: translateX(0px) scale3d(1, 1, 1);
+  }
 }

@@ -1,9 +1,344 @@
+html.disabled {
+  overflow: hidden;
+}
+html.disabled .overlay {
+  opacity: 1;
+}
+
 body {
-  background: url("img/general-bg.png") repeat 0 0;
+  margin: 0;
   font-family: monospace;
+  background: #4e93ff;
+}
+
+.game-wrapper {
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  font-size: 15px;
+}
+.game-wrapper .coin-toss-wrapper {
+  bottom: 450px;
+  width: 200px;
+  margin: 0 0 0 -100px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+}
+.game-wrapper .coin-toss-wrapper #instructions {
+  opacity: 0.75;
+}
+.game-wrapper .coin-toss-wrapper .coin {
+  margin: 15px 0 0;
+}
+.game-wrapper .coin-toss-wrapper .coin.drop-animation {
+  animation-name: coindrop;
+  animation-duration: 2.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.62, 0.06, 0.91, 0.62);
+  z-index: 2;
+  cursor: pointer;
+  animation-fill-mode: forwards;
+}
+.game-wrapper .coin-toss-wrapper .coin.active {
+  transform: translateY(186px);
+  opacity: 0;
+  transition: all 0.5s;
+}
+.game-wrapper .coin-toss-wrapper .coin:hover {
+  transform: scale(1.1);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+.game-wrapper .coin.poof {
+  animation-name: poof;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(1, -0.29, 0.91, 0.62);
+}
+.game-wrapper .crypto-widget-wrapper {
+  width: 400px;
+  position: absolute;
+  left: 50%;
+  margin-left: -200px;
+  bottom: 100px;
+  letter-spacing: -0.5px;
+}
+.game-wrapper .crypto-widget-wrapper .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+.game-wrapper .crypto-widget-wrapper .row:not(.header) {
+  counter-increment: section;
+  padding-left: 20px;
+}
+.game-wrapper .crypto-widget-wrapper .row:not(.header):before {
+  content: counter(section);
+  margin-right: 5px;
+  position: absolute;
+  left: -5px;
+  text-align: center;
+  width: 20px;
+}
+.game-wrapper .crypto-widget-wrapper .row.header {
+  border-bottom: 1px solid rgb(0, 0, 0);
+  padding-bottom: 1px;
+  color: #fccc13;
+}
+.game-wrapper .crypto-widget-wrapper .row.header:after {
+  width: 100%;
+  height: 1px;
+  background: #000;
+  content: "";
+  margin-top: 5px;
+}
+.game-wrapper .crypto-widget-wrapper .row.header span:before {
+  display: none;
+}
+.game-wrapper .crypto-widget-wrapper .row .name {
+  width: 40%;
+}
+.game-wrapper .crypto-widget-wrapper .row .price {
+  justify-self: flex-end;
+  text-align: right;
+  width: 25%;
+}
+.game-wrapper .crypto-widget-wrapper .row .price-change {
+  width: 35%;
+  text-align: left;
+}
+.game-wrapper .crypto-widget-wrapper .row .price-change:before {
+  margin-right: 5px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  content: "";
+}
+.game-wrapper .crypto-widget-wrapper .row .price-change.positive {
+  color: #46ff14;
+}
+.game-wrapper .crypto-widget-wrapper .row .price-change.positive:before {
+  border-style: solid;
+  border-width: 0 3px 6px 3px;
+  border-color: transparent transparent #46ff14 transparent;
+}
+.game-wrapper .crypto-widget-wrapper .row .price-change.negative {
+  color: #fa1908;
+}
+.game-wrapper .crypto-widget-wrapper .row .price-change.negative:before {
+  border-style: solid;
+  border-width: 6px 3px 0 3px;
+  border-color: #fa1908 transparent transparent transparent;
+}
+.game-wrapper .google-search-wrapper {
+  width: 560px;
+  position: absolute;
+  left: 50%;
+  margin: 0px 0 0 -280px;
+  bottom: 70%;
+  z-index: 4;
+}
+.game-wrapper .google-search-wrapper .submit {
+  display: none;
+}
+.game-wrapper .google-search-wrapper .search {
+  width: 100%;
+  border-radius: 30px;
+  padding: 15px 15px 15px 55px;
+  border: 1px solid #4482e4;
+  font-family: inherit;
+  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  box-sizing: border-box;
+  background: url("img/search-icon.svg") no-repeat 20px center #fff;
+  background-size: 15px 15px;
+}
+.game-wrapper .google-search-wrapper .search:active, .game-wrapper .google-search-wrapper .search:focus-visible {
+  outline: none;
+}
+.game-wrapper .google-search-wrapper .search:before {
+  content: "blah";
+}
+.game-wrapper .cloud {
+  position: absolute;
+  left: 0;
+  top: -10px;
+  text-align: center;
+}
+.game-wrapper .cloud .cloud-img {
+  z-index: 2;
+  position: relative;
+}
+.game-wrapper .cloud.animate .rain {
+  animation-name: rainfall;
+}
+.game-wrapper .cloud .rain {
+  display: block;
+  top: -100px;
+  z-index: 1;
+  margin: 10px 90px;
+  width: 6px;
+  height: 10px;
+  background: #fff;
+  position: absolute;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.62, 0.06, 0.91, 0.62);
+}
+.game-wrapper .cloud .rain:nth-child(2), .game-wrapper .cloud .rain:nth-child(4) {
+  background: #41c1ee;
+  animation-duration: 0.75s;
+}
+.game-wrapper .cloud .rain:nth-child(2) {
+  margin: 25px 45px;
+  animation-duration: 1.6s;
+}
+.game-wrapper .cloud .rain:nth-child(3) {
+  margin: 65px 25px;
+  animation-duration: 1.2s;
+}
+.game-wrapper .cloud .rain:nth-child(4) {
+  margin: 50px 95px;
+}
+.game-wrapper .cloud .rain:nth-child(5) {
+  margin: 95px 45px;
+}
+.game-wrapper .cloud .rain:nth-child(6) {
+  margin: 5px 105px;
+  animation-duration: 1.4s;
+}
+.game-wrapper .rainbow {
+  width: 60px;
+  height: 48px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: url("img/rainbow.png") no-repeat 0 0;
+  background-size: cover;
+}
+.game-wrapper .bush {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+.game-wrapper .bush.animate {
+  animation-name: bushgrow;
+}
+.game-wrapper .fountain {
+  width: 116px;
+  height: 80px;
+  position: absolute;
+  margin: 0 0 0 -58px;
+  left: 50%;
+  bottom: 0;
+  background: url("img/fountain-animation.gif") no-repeat 0 0;
+  background-size: cover;
+  animation-duration: 0.4s;
+  animation-delay: 400ms;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.58, -0.37, 0.41, 1.27);
+}
+.game-wrapper .fountain.animate {
+  animation-name: fountainBulge;
+}
+.game-wrapper .fountain .splashes {
+  position: absolute;
+}
+.game-wrapper .fountain .splashes.animate span {
+  animation-name: fountainSplash;
+}
+.game-wrapper .fountain .splashes span {
+  background: #fff;
+  height: 8px;
+  width: 8px;
+  display: block;
+  position: absolute;
+  bottom: 71px;
+  left: 90px;
+  transform: translateY(400px);
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.2, 0.67, 0.21, 0.94);
+  animation-fill-mode: forwards;
+  animation-delay: 500ms;
+}
+.game-wrapper .fountain .splashes span:nth-child(odd) {
+  background: #41c1ee;
+}
+.game-wrapper .fountain .splashes span:nth-child(3n+1) {
+  bottom: 111px;
+  left: 65px;
+  animation-duration: 0.75s;
+}
+.game-wrapper .fountain .splashes span:nth-child(3n+2) {
+  bottom: 66px;
+  left: 148px;
+  animation-duration: 0.5s;
+}
+.game-wrapper .fountain .splashes span:nth-child(3n+3) {
+  bottom: 115px;
+  left: 131px;
+  animation-duration: 1.2s;
+}
+.game-wrapper .fountain .splashes span:nth-child(3n+4) {
+  bottom: 5px;
+  left: 176px;
+  animation-duration: 0.9s;
+}
+.game-wrapper .fountain .splashes span:nth-child(3n+5) {
+  bottom: 40px;
+  left: 91px;
+  animation-duration: 1.3s;
+}
+.game-wrapper .fountain .splashes span:nth-child(3n+6) {
+  bottom: 26px;
+  left: 97px;
+  animation-duration: 1s;
+}
+.game-wrapper .right-controls {
+  right: 0px;
+  bottom: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: absolute;
+}
+.game-wrapper .right-controls .coin-holder {
+  width: 30px;
+  margin: 0 0 0 10px;
+}
+
+.fadeout {
+  opacity: 0 !important;
+  transition: all ease 300ms;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(25, 35, 50, 0.9);
+  z-index: 3;
+  transition: all ease 2s;
+  pointer-events: none;
 }
 
 .window {
+  display: none;
   background: #fff;
   border: 2px solid #000;
   max-width: 544px;
@@ -47,59 +382,91 @@ body {
   margin-right: 15px;
 }
 
-.game-wrapper {
-  height: 259px;
-  background: url("img/game-bg.jpg") no-repeat 0 0;
-  background-size: cover;
-  display: flex;
-  position: relative;
-}
-.game-wrapper .coin.main {
-  margin: 30px auto 0px -15px;
-  position: absolute;
-  left: 50%;
-  transition: all 0.5s;
-}
-.game-wrapper .coin.main.active {
-  transform: translateY(186px);
-  opacity: 0;
-  transition: all 0.5s;
-}
-.game-wrapper .fountain {
-  width: 116px;
-  height: 80px;
-  margin: auto auto 0px;
-  background: url("img/fountain-animation.gif") no-repeat 0 0;
-  background-size: cover;
-}
-.game-wrapper .right-controls {
-  right: 0px;
-  bottom: 10px;
-  padding-right: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  position: absolute;
-}
-.game-wrapper .right-controls .help-text {
-  font-size: 10px;
-  text-align: right;
-  width: 80px;
-}
-.game-wrapper .right-controls .coin-holder {
-  width: 30px;
-  margin: 0 0 0 10px;
-}
-
 button {
   background: #0018ff;
-  padding: 10px 20px;
+  padding: 5px 10px;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   border: 0;
   font-family: monospace;
   box-shadow: 4px 4px 0px #282828;
+  cursor: pointer;
+}
+button:hover {
+  box-shadow: 2px 2px 0px #282828;
+}
+
+@keyframes coindrop {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  12% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(450px) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes poof {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15) translateY(-20px);
+    opacity: 0;
+  }
+}
+@keyframes rainfall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(900px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fountainSplash {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(-400px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fountainBulge {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes bushgrow {
+  0% {
+    transform: translateX(0px) scale3d(1, 1, 1);
+  }
+  50% {
+    transform: translateX(5px) scale3d(1, 1.1, 1);
+  }
+  100% {
+    transform: translateX(0px) scale3d(1, 1, 1);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
